@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Chat - Cheat Reaksmey</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Khmer OS Battambang', 'Segoe UI', sans-serif; }
+        body { background: #e7ebf0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* Login Screen */
+        #login-screen { position: fixed; inset: 0; background: #517da2; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .login-box { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 320px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+        .login-box button { background: #517da2; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        
+        /* Header */
+        header { background: #517da2; color: white; padding: 15px; font-weight: bold; text-align: center; font-size: 1.1rem; flex-shrink: 0; }
+        
+        /* Chat Container */
+        #chat-container { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+        
+        /* Messages Style */
+        .message-wrapper { display: flex; flex-direction: column; max-width: 80%; }
+        .sent { align-self: flex-end; }
+        .received { align-self: flex-start; }
+        
+        .sender-name { font-size: 11px; color: #517da2; margin-bottom: 3px; font-weight: bold; }
+        .sent .sender-name { text-align: right; }
 
+        .message { padding: 10px 14px; border-radius: 15px; background: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1); position: relative; word-wrap: break-word; line-height: 1.4; }
+        .sent .message { background: #effdde; border-bottom-right-radius: 2px; }
+        .received .message { border-bottom-left-radius: 2px; }
+        
+        .msg-time { font-size: 9px; color: #888; margin-top: 5px; text-align: right; display: block; }
+        
+        /* Media Content */
+        img, video { max-width: 100%; border-radius: 10px; margin-top: 5px; display: block; cursor: pointer; background: #f0f0f0; }
+
+        /* Input Area */
+        .input-area { background: white; padding: 12px; display: flex; gap: 10px; align-items: center; border-top: 1px solid #ddd; }
+        #msg-input { flex: 1; border: 1px solid #eee; padding: 12px; border-radius: 25px; outline: none; background: #f1f1f1; font-size: 15px; }
+        .btn-send { cursor: pointer; border: none; background: none; font-size: 24px; color: #517da2; display: flex; align-items: center; }
+        .btn-send:active { transform: scale(0.9); }
+        .file-label { cursor: pointer; font-size: 24px; padding: 0 5px; }
+
+        /* Loading Spinner */
+        #loading-bar { display: none; background: #fff9c4; padding: 5px; text-align: center; font-size: 12px; color: #856404; border-top: 1px solid #ffeeba; }
+    </style>
+</head>
+<body>
+
+<div id="login-screen">
+    <div class="login-box">
+        <h2 style="color:#517da2; margin-bottom: 10px;">ជម្រាបសួរ! 🙏</h2>
+        <p style="font-size: 13px; color: #666;">សូមបញ្ចូលឈ្មោះដើម្បីចាប់ផ្តើមឆាត</p>
+        <input type="text" id="login-name" placeholder="ឈ្មោះរបស់អ្នក...">
+        <button onclick="login()">ចូលរួមឆាត</button>
+    </div>
+</div>
+
+<header>Cheat Reaksmey Global Chat 💬</header>
+<div id="loading-bar">កំពុងផ្ញើឯកសារ... សូមរង់ចាំ!</div>
+<div id="chat-container"></div>
+
+<div class="input-area">
+    <label class="file-label">📎<input type="file" id="file-input" hidden accept="image/*,video/*" onchange="uploadFile(event)"></label>
+    <input type="text" id="msg-input" placeholder="សរសេរសារ..." autocomplete="off">
+    <button class="btn-send" onclick="sendMessage()">➤</button>
+</div>
+
+<script type="module">
+    // Firebase Setup
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDPZNVhZlRxPesF-ID8N9IO_zhKWZsOn48",
+        authDomain: "cheatreaksmey-f197a.firebaseapp.com",
+        databaseURL: "https://cheatreaksmey-f197a-default-rtdb.asia-southeast1.firebasedatabase.app/",
+        projectId: "cheatreaksmey-f197a",
+        storageBucket: "cheatreaksmey-f197a.firebasestorage.app",
+        appId: "1:814624911892:web:b7e44ee2dd9b87b6902d01"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const chatRef = ref(db, 'global_messages');
+
+    // Cloudinary Setup (សូមពិនិត្យឱ្យច្បាស់ត្រង់នេះ)
+    const CLOUD_NAME = "djz9t4aye"; 
+    const UPLOAD_PRESET = "bbefttwh"; 
+
+    // Login Function
+    window.login = () => {
+        const name = document.getElementById('login-name').value;
+        if(name.trim()) {
+            localStorage.setItem('reak_name', name);
+            document.getElementById('login-screen').style.display = 'none';
+        }
+    };
+
+    if(localStorage.getItem('reak_name')) document.getElementById('login-screen').style.display = 'none';
+
+    // Send Text Function
+    window.sendMessage = () => {
+        const name = localStorage.getItem('reak_name');
+        const input = document.getElementById('msg-input');
+        if(input.value.trim()) {
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            push(chatRef, { 
+                sender: name, 
+                text: input.value, 
+                type: 'text', 
+                time: time 
+            });
+            input.value = "";
+        }
+    };
+
+    // Enter Key to Send
+    document.getElementById('msg-input').onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+
+    // Upload File Function (Image & Video)
+    window.uploadFile = async (e) => {
+        const file = e.target.files[0];
+        if(!file) return;
+
+        const name = localStorage.getItem('reak_name');
+        const loadingBar = document.getElementById('loading-bar');
+        const inputField = document.getElementById('msg-input');
+
+        // បង្ហាញ Loading State
+        loadingBar.style.display = 'block';
+        inputField.disabled = true;
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+
+        try {
+            // ប្តូរ API ទៅជា /auto/ សម្រាប់ការផ្ញើគ្រប់ប្រភេទ
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`, {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await res.json();
+            
+            if(data.secure_url) {
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                await push(chatRef, { 
+                    sender: name, 
+                    url: data.secure_url, 
+                    type: data.resource_type, // 'image' ឬ 'video'
+                    time: time 
+                });
+            } else {
+                alert("ការផ្ញើបរាជ័យ៖ " + (data.error ? data.error.message : "ពិនិត្យការកំណត់ Cloudinary"));
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Network Error: ផ្ញើមិនចេញទេ!");
+        } finally {
+            loadingBar.style.display = 'none';
+            inputField.disabled = false;
+            e.target.value = ''; // Clear file input
+        }
+    };
+
+    // Listen for Messages
+    onChildAdded(chatRef, (snapshot) => {
+        const data = snapshot.val();
+        const myName = localStorage.getItem('reak_name');
+        const isMe = data.sender === myName;
+        
+        const container = document.getElementById('chat-container');
+        const div = document.createElement('div');
+        div.className = `message-wrapper ${isMe ? 'sent' : 'received'}`;
+        
+        let content = `<div class="sender-name">${isMe ? 'ខ្ញុំ' : data.sender}</div><div class="message">`;
+        
+        if(data.type === 'text') {
+            content += `<span>${data.text}</span>`;
+        } else if(data.type === 'image') {
+            content += `<img src="${data.url}" loading="lazy" onclick="window.open('${data.url}', '_blank')">`;
+        } else if(data.type === 'video') {
+            content += `<video src="${data.url}" controls></video>`;
+        }
+        
+        content += `<span class="msg-time">${data.time || ''}</span></div>`;
+        div.innerHTML = content;
+        
+        container.appendChild(div);
+        
+        // Auto Scroll ទៅក្រោមបំផុតភ្លាមៗ
+        container.scrollTop = container.scrollHeight;
+    });
+</script>
+</body>
+</html>
