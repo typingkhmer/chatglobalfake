@@ -8,43 +8,58 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Khmer OS Battambang', 'Segoe UI', sans-serif; }
         body { background: #e7ebf0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         
-        /* Login Screen */
+     
         #login-screen { position: fixed; inset: 0; background: #517da2; display: flex; align-items: center; justify-content: center; z-index: 1000; }
         .login-box { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 320px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; }
         .login-box button { background: #517da2; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; }
         
-        /* Header */
-        header { background: #517da2; color: white; padding: 15px; font-weight: bold; text-align: center; font-size: 1.1rem; flex-shrink: 0; }
+      
+        .profile-upload-container { position: relative; width: 80px; height: 80px; margin: 0 auto 15px auto; cursor: pointer; }
+        .profile-upload-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px dashed #517da2; background: #f0f0f0; }
+        .profile-upload-container input { display: none; }
+        .profile-upload-hint { font-size: 11px; color: #666; margin-bottom: 5px; }
+
+     
+        header { background: #517da2; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .header-title { font-weight: bold; font-size: 1.05rem; }
+        .my-profile-btn { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 20px; cursor: pointer; }
+        .my-profile-btn img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid white; }
+        .my-profile-btn span { font-size: 12px; font-weight: bold; color: white; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
-        /* Chat Container */
+        
         #chat-container { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
         
-        /* Messages Style */
-        .message-wrapper { display: flex; flex-direction: column; max-width: 80%; position: relative; }
-        .sent { align-self: flex-end; }
-        .received { align-self: flex-start; }
         
-        .sender-name { font-size: 11px; color: #517da2; margin-bottom: 3px; font-weight: bold; }
-        .sent .sender-name { text-align: right; }
+        .message-row { display: flex; gap: 8px; align-items: flex-end; max-width: 85%; }
+        .sent-row { align-self: flex-end; flex-direction: row-reverse; }
+        .received-row { align-self: flex-start; }
+
+        .chat-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; cursor: pointer; flex-shrink: 0; background: #ddd; }
+
+        .message-wrapper { display: flex; flex-direction: column; max-width: 100%; position: relative; }
+        .sent-row .message-wrapper { align-items: flex-end; }
+        
+        .sender-name { font-size: 11px; color: #517da2; margin-bottom: 3px; font-weight: bold; cursor: pointer; }
+        .sent-row .sender-name { text-align: right; }
 
         .message { padding: 10px 14px; border-radius: 15px; background: white; box-shadow: 0 1px 2px rgba(0,0,0,0.1); position: relative; word-wrap: break-word; line-height: 1.4; cursor: pointer; }
-        .sent .message { background: #effdde; border-bottom-right-radius: 2px; }
-        .received .message { border-bottom-left-radius: 2px; }
+        .sent-row .message { background: #effdde; border-bottom-right-radius: 2px; border-bottom-left-radius: 15px; }
+        .received-row .message { border-bottom-left-radius: 2px; border-bottom-right-radius: 15px; }
         
         .msg-time { font-size: 9px; color: #888; margin-top: 5px; text-align: right; display: block; }
         
-        /* Reply Preview in Message */
+     
         .replied-box { background: rgba(0,0,0,0.05); padding: 5px 8px; border-left: 3px solid #517da2; font-size: 11px; margin-bottom: 5px; border-radius: 4px; color: #555; }
 
-        /* Active Reply Banner (Above Input) */
-        #reply-banner { display: none; background: #f1f1f1; padding: 8px 12px; font-size: 12px; border-top: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center; }
+       
+        #reply-banner { display: none; background: #f1f1f1; padding: 8px 12px; font-size: 12px; border-top: 1px solid #ddd; justify-content: space-between; align-items: center; }
         #reply-banner span { color: #517da2; font-weight: bold; }
 
-        /* Media Content */
-        img, video { max-width: 100%; border-radius: 10px; margin-top: 5px; display: block; background: #f0f0f0; }
+     
+        img.chat-media, video { max-width: 100%; border-radius: 10px; margin-top: 5px; display: block; background: #f0f0f0; }
 
-        /* Input Area */
+     
         .input-area { background: white; padding: 12px; display: flex; flex-direction: column; border-top: 1px solid #ddd; }
         .input-row { display: flex; gap: 10px; align-items: center; width: 100%; }
         #msg-input { flex: 1; border: 1px solid #eee; padding: 12px; border-radius: 25px; outline: none; background: #f1f1f1; font-size: 15px; }
@@ -52,40 +67,84 @@
         .btn-send:active { transform: scale(0.9); }
         .file-label { cursor: pointer; font-size: 24px; padding: 0 5px; }
 
-        /* Loading Spinner */
+     
         #loading-bar { display: none; background: #fff9c4; padding: 5px; text-align: center; font-size: 12px; color: #856404; border-top: 1px solid #ffeeba; }
         
-        /* Action Menu Modal */
+        
         #action-menu { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 2000; justify-content: center; align-items: center; }
         .action-box { background: white; padding: 20px; border-radius: 12px; width: 80%; max-width: 250px; display: flex; flex-direction: column; gap: 10px; text-align: center; }
         .action-box button { padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
         .btn-reply-opt { background: #517da2; color: white; }
         .btn-delete-opt { background: #ff4d4d; color: white; }
         .btn-cancel-opt { background: #ddd; color: #333; }
+
+     
+        #profile-modal, #settings-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center; }
+        .profile-card { background: white; padding: 25px; border-radius: 15px; width: 85%; max-width: 280px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .profile-card img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: 3px solid #517da2; }
+        .profile-card h3 { color: #333; margin-bottom: 15px; }
+        .profile-card button { background: #517da2; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; }
+        .profile-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; text-align: center; }
     </style>
 </head>
 <body>
 
+
 <div id="login-screen">
     <div class="login-box">
-        <h2 style="color:#517da2; margin-bottom: 10px;">ជម្រាបសួរ! 🙏</h2>
-        <p style="font-size: 13px; color: #666;">សូមបញ្ចូលឈ្មោះដើម្បីចាប់ផ្តើមឆាត</p>
+        <h2 style="color:#517da2; margin-bottom: 5px;">ជម្រាបសួរ! 🙏</h2>
+        <p class="profile-upload-hint">ចុចលើរូបដើម្បីដាក់រូបប្រវត្តិរូបរបស់អ្នក</p>
+        <div class="profile-upload-container" onclick="document.getElementById('login-avatar-input').click()">
+            <img id="login-avatar-preview" src="https://via.placeholder.com/100?text=Upload" alt="Avatar">
+            <input type="file" id="login-avatar-input" accept="image/*" onchange="previewAvatar(event, 'login-avatar-preview')">
+        </div>
         <input type="text" id="login-name" placeholder="ឈ្មោះរបស់អ្នក...">
         <button onclick="login()">ចូលរួមឆាត</button>
     </div>
 </div>
 
-<header>Cheat Reaksmey Global Chat 💬</header>
+
+<header>
+    <div class="header-title">Cheat Reaksmey Chat 💬</div>
+    <div class="my-profile-btn" onclick="openSettingsModal()">
+        <img id="header-avatar" src="https://via.placeholder.com/100?text=User" alt="My Avatar">
+        <span id="header-name">ឈ្មោះខ្ញុំ</span>
+    </div>
+</header>
+
 <div id="loading-bar">កំពុងផ្ញើឯកសារ... សូមរង់ចាំ!</div>
 <div id="chat-container"></div>
 
-<!-- Action Menu Popup (Reply / Delete) -->
+
+<div id="settings-modal" onclick="closeSettingsModal()">
+    <div class="profile-card" onclick="event.stopPropagation()">
+        <h3 style="color:#517da2; margin-bottom:10px;">កែប្រែប្រវត្តិរូបផ្ទាល់ខ្លួន</h3>
+        <div class="profile-upload-container" onclick="document.getElementById('edit-avatar-input').click()">
+            <img id="edit-avatar-preview" src="https://via.placeholder.com/100?text=Upload" alt="Avatar">
+            <input type="file" id="edit-avatar-input" accept="image/*" onchange="previewAvatar(event, 'edit-avatar-preview')">
+        </div>
+        <input type="text" id="edit-name-input" placeholder="ឈ្មោះថ្មីរបស់អ្នក...">
+        <button onclick="saveProfileChanges()">រក្សាទុក</button>
+        <button style="background:#ddd; color:#333;" onclick="closeSettingsModal()">បោះបង់</button>
+    </div>
+</div>
+
+
 <div id="action-menu" onclick="closeActionMenu()">
     <div class="action-box" onclick="event.stopPropagation()">
         <p style="font-size: 13px; font-weight: bold; margin-bottom: 5px;">ជ្រើសរើសជម្រើស</p>
         <button class="btn-reply-opt" onclick="triggerReply()">💬 ឆ្លើយតប (Reply)</button>
         <button id="btn-del" class="btn-delete-opt" style="display:none;" onclick="triggerDelete()">🗑️ លុបចោល (Delete)</button>
         <button class="btn-cancel-opt" onclick="closeActionMenu()">បោះបង់</button>
+    </div>
+</div>
+
+
+<div id="profile-modal" onclick="closeProfileModal()">
+    <div class="profile-card" onclick="event.stopPropagation()">
+        <img id="modal-avatar" src="" alt="Profile">
+        <h3 id="modal-name"></h3>
+        <button onclick="closeProfileModal()">បិទ</button>
     </div>
 </div>
 
@@ -121,28 +180,103 @@
     const CLOUD_NAME = "djz9t4aye"; 
     const UPLOAD_PRESET = "bbefttwh"; 
 
-    let replyingTo = null; // เก็บข้อมูลข้อความที่กำลัง Reply
+    let replyingTo = null; 
     let selectedMsgId = null;
     let selectedMsgSender = null;
+    let tempAvatarUrl = ""; 
+
+   
+    window.previewAvatar = async (e, previewId) => {
+        const file = e.target.files[0];
+        if(!file) return;
+
+        document.getElementById(previewId).src = URL.createObjectURL(file);
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+
+        try {
+            const res = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`;
+            const response = await fetch(res, { method: 'POST', body: formData });
+            const data = await response.json();
+            if(data.secure_url) {
+                tempAvatarUrl = data.secure_url;
+            }
+        } catch(err) {
+            console.error(err);
+            alert("បញ្ជូនរូបភាពប្រវត្តិរូបមិនជោគជ័យ!");
+        }
+    };
 
     window.login = () => {
         const name = document.getElementById('login-name').value;
         if(name.trim()) {
             localStorage.setItem('reak_name', name);
+            if(tempAvatarUrl) {
+                localStorage.setItem('reak_avatar', tempAvatarUrl);
+            } else if(!localStorage.getItem('reak_avatar')) {
+                localStorage.setItem('reak_avatar', 'https://via.placeholder.com/100?text=User');
+            }
             document.getElementById('login-screen').style.display = 'none';
+            updateHeaderProfile();
+        } else {
+            alert("សូមបញ្ចូលឈ្មោះរបស់អ្នក!");
         }
     };
 
-    if(localStorage.getItem('reak_name')) document.getElementById('login-screen').style.display = 'none';
+   
+    if(localStorage.getItem('reak_name')) {
+        document.getElementById('login-screen').style.display = 'none';
+        if(!localStorage.getItem('reak_avatar')) {
+            localStorage.setItem('reak_avatar', 'https://via.placeholder.com/100?text=User');
+        }
+        updateHeaderProfile();
+    }
 
-    // Send Text Function
+    function updateHeaderProfile() {
+        const name = localStorage.getItem('reak_name');
+        const avatar = localStorage.getItem('reak_avatar');
+        document.getElementById('header-name').innerText = name;
+        document.getElementById('header-avatar').src = avatar;
+    }
+
+  
+    window.openSettingsModal = () => {
+        document.getElementById('edit-name-input').value = localStorage.getItem('reak_name') || '';
+        document.getElementById('edit-avatar-preview').src = localStorage.getItem('reak_avatar') || 'https://via.placeholder.com/100?text=User';
+        tempAvatarUrl = localStorage.getItem('reak_avatar'); // Reset to current
+        document.getElementById('settings-modal').style.display = 'flex';
+    };
+
+    window.closeSettingsModal = () => {
+        document.getElementById('settings-modal').style.display = 'none';
+    };
+
+    window.saveProfileChanges = () => {
+        const newName = document.getElementById('edit-name-input').value.trim();
+        if(newName) {
+            localStorage.setItem('reak_name', newName);
+            if(tempAvatarUrl) {
+                localStorage.setItem('reak_avatar', tempAvatarUrl);
+            }
+            updateHeaderProfile();
+            closeSettingsModal();
+        } else {
+            alert("សូមបញ្ចូលឈ្មោះរបស់អ្នក!");
+        }
+    };
+
+   
     window.sendMessage = () => {
         const name = localStorage.getItem('reak_name');
+        const avatar = localStorage.getItem('reak_avatar') || '';
         const input = document.getElementById('msg-input');
         if(input.value.trim()) {
             const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             let messageData = { 
                 sender: name, 
+                avatar: avatar,
                 text: input.value, 
                 type: 'text', 
                 time: time 
@@ -160,12 +294,13 @@
 
     document.getElementById('msg-input').onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
 
-    // Upload File Function
+    
     window.uploadFile = async (e) => {
         const file = e.target.files[0];
         if(!file) return;
 
         const name = localStorage.getItem('reak_name');
+        const avatar = localStorage.getItem('reak_avatar') || '';
         const loadingBar = document.getElementById('loading-bar');
         const inputField = document.getElementById('msg-input');
 
@@ -193,6 +328,7 @@
                 
                 let messageData = { 
                     sender: name, 
+                    avatar: avatar,
                     url: data.secure_url, 
                     type: fileType, 
                     time: time 
@@ -217,7 +353,7 @@
         }
     };
 
-    // Reply Controls
+    
     window.openActionMenu = (msgId, sender, textContent) => {
         selectedMsgId = msgId;
         selectedMsgSender = sender;
@@ -226,7 +362,6 @@
         const myName = localStorage.getItem('reak_name');
         const delBtn = document.getElementById('btn-del');
         
-        // បើជាសាររបស់ខ្លួនឯង ទើបអាចលុបបាន
         if(sender === myName) {
             delBtn.style.display = 'block';
         } else {
@@ -252,7 +387,7 @@
         document.getElementById('reply-banner').style.display = 'none';
     };
 
-    // Delete Message Function (Delete for Everyone)
+   
     window.triggerDelete = () => {
         if(selectedMsgId) {
             const msgRef = ref(db, `global_messages/${selectedMsgId}`);
@@ -264,7 +399,18 @@
         }
     };
 
-    // Listen for Messages Added
+   
+    window.showProfile = (name, avatar) => {
+        document.getElementById('modal-name').innerText = name;
+        document.getElementById('modal-avatar').src = avatar || 'https://via.placeholder.com/100?text=User';
+        document.getElementById('profile-modal').style.display = 'flex';
+    };
+
+    window.closeProfileModal = () => {
+        document.getElementById('profile-modal').style.display = 'none';
+    };
+
+   
     onChildAdded(chatRef, (snapshot) => {
         const data = snapshot.val();
         const msgId = snapshot.key;
@@ -272,14 +418,19 @@
         const isMe = data.sender === myName;
         
         const container = document.getElementById('chat-container');
-        const div = document.createElement('div');
-        div.className = `message-wrapper ${isMe ? 'sent' : 'received'}`;
-        div.id = `msg-${msgId}`;
+        const rowDiv = document.createElement('div');
+        rowDiv.className = `message-row ${isMe ? 'sent-row' : 'received-row'}`;
+        rowDiv.id = `msg-${msgId}`;
         
-        let content = `<div class="sender-name">${isMe ? 'ខ្ញុំ' : data.sender}</div>`;
-        content += `<div class="message" onclick="openActionMenu('${msgId}', '${data.sender}', '${data.text ? data.text.replace(/'/g, "\\'") : (data.type === 'image' ? '[រូបភាព]' : '[វីដេអូ]')}')">`;
-        
+        const avatarUrl = data.avatar || 'https://via.placeholder.com/100?text=User';
+        const escapedName = data.sender.replace(/'/g, "\\'");
+        const escapedAvatar = avatarUrl.replace(/'/g, "\\'");
 
+        let content = `<img class="chat-avatar" src="${avatarUrl}" onclick="showProfile('${escapedName}', '${escapedAvatar}')">`;
+        content += `<div class="message-wrapper">`;
+        content += `<div class="sender-name" onclick="showProfile('${escapedName}', '${escapedAvatar}')">${isMe ? 'ខ្ញុំ' : data.sender}</div>`;
+        content += `<div class="message" onclick="openActionMenu('${msgId}', '${escapedName}', '${data.text ? data.text.replace(/'/g, "\\'") : (data.type === 'image' ? '[រូបភាព]' : '[វីដេអូ]')}')">`;
+        
         if(data.replyTo) {
             content += `<div class="replied-box">↩ តបទៅ៖ ${data.replyTo}</div>`;
         }
@@ -287,18 +438,17 @@
         if(data.type === 'text') {
             content += `<span>${data.text}</span>`;
         } else if(data.type === 'image') {
-            content += `<img src="${data.url}" loading="lazy" onclick="event.stopPropagation(); window.open('${data.url}', '_blank')">`;
+            content += `<img class="chat-media" src="${data.url}" loading="lazy" onclick="event.stopPropagation(); window.open('${data.url}', '_blank')">`;
         } else if(data.type === 'video') {
             content += `<video src="${data.url}" controls></video>`;
         }
         
-        content += `<span class="msg-time">${data.time || ''}</span></div>`;
-        div.innerHTML = content;
+        content += `<span class="msg-time">${data.time || ''}</span></div></div>`;
+        rowDiv.innerHTML = content;
         
-        container.appendChild(div);
+        container.appendChild(rowDiv);
         container.scrollTop = container.scrollHeight;
     });
-
 
     onChildRemoved(chatRef, (snapshot) => {
         const msgId = snapshot.key;
