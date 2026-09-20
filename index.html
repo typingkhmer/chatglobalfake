@@ -8,29 +8,39 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Khmer OS Battambang', 'Segoe UI', sans-serif; }
         body { background: #e7ebf0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         
-     
+       
         #login-screen { position: fixed; inset: 0; background: #517da2; display: flex; align-items: center; justify-content: center; z-index: 1000; }
         .login-box { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 320px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; }
         .login-box button { background: #517da2; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; }
         
-      
+       
         .profile-upload-container { position: relative; width: 80px; height: 80px; margin: 0 auto 15px auto; cursor: pointer; }
         .profile-upload-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px dashed #517da2; background: #f0f0f0; }
         .profile-upload-container input { display: none; }
         .profile-upload-hint { font-size: 11px; color: #666; margin-bottom: 5px; }
 
-     
+        
         header { background: #517da2; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-        .header-title { font-weight: bold; font-size: 1.05rem; }
+        .header-left { display: flex; flex-direction: column; }
+        .header-title { font-weight: bold; font-size: 1rem; }
+        .online-counter { font-size: 11px; color: #d4edda; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+        .online-dot { width: 8px; height: 8px; background-color: #28a745; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(40, 167, 69, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+
         .my-profile-btn { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 20px; cursor: pointer; }
-        .my-profile-btn img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid white; }
+        .my-profile-btn img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid white; background: white; }
         .my-profile-btn span { font-size: 12px; font-weight: bold; color: white; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         
         
         #chat-container { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
         
-        
+       
         .message-row { display: flex; gap: 8px; align-items: flex-end; max-width: 85%; }
         .sent-row { align-self: flex-end; flex-direction: row-reverse; }
         .received-row { align-self: flex-start; }
@@ -49,17 +59,17 @@
         
         .msg-time { font-size: 9px; color: #888; margin-top: 5px; text-align: right; display: block; }
         
-     
+        
         .replied-box { background: rgba(0,0,0,0.05); padding: 5px 8px; border-left: 3px solid #517da2; font-size: 11px; margin-bottom: 5px; border-radius: 4px; color: #555; }
 
-       
+      
         #reply-banner { display: none; background: #f1f1f1; padding: 8px 12px; font-size: 12px; border-top: 1px solid #ddd; justify-content: space-between; align-items: center; }
         #reply-banner span { color: #517da2; font-weight: bold; }
 
-     
+        
         img.chat-media, video { max-width: 100%; border-radius: 10px; margin-top: 5px; display: block; background: #f0f0f0; }
 
-     
+        
         .input-area { background: white; padding: 12px; display: flex; flex-direction: column; border-top: 1px solid #ddd; }
         .input-row { display: flex; gap: 10px; align-items: center; width: 100%; }
         #msg-input { flex: 1; border: 1px solid #eee; padding: 12px; border-radius: 25px; outline: none; background: #f1f1f1; font-size: 15px; }
@@ -67,10 +77,10 @@
         .btn-send:active { transform: scale(0.9); }
         .file-label { cursor: pointer; font-size: 24px; padding: 0 5px; }
 
-     
+       
         #loading-bar { display: none; background: #fff9c4; padding: 5px; text-align: center; font-size: 12px; color: #856404; border-top: 1px solid #ffeeba; }
         
-        
+       
         #action-menu { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 2000; justify-content: center; align-items: center; }
         .action-box { background: white; padding: 20px; border-radius: 12px; width: 80%; max-width: 250px; display: flex; flex-direction: column; gap: 10px; text-align: center; }
         .action-box button { padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
@@ -78,10 +88,10 @@
         .btn-delete-opt { background: #ff4d4d; color: white; }
         .btn-cancel-opt { background: #ddd; color: #333; }
 
-     
+      
         #profile-modal, #settings-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center; }
         .profile-card { background: white; padding: 25px; border-radius: 15px; width: 85%; max-width: 280px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .profile-card img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: 3px solid #517da2; }
+        .profile-card img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; border: 3px solid #517da2; background: #f0f0f0; }
         .profile-card h3 { color: #333; margin-bottom: 15px; }
         .profile-card button { background: #517da2; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; }
         .profile-card input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; text-align: center; }
@@ -95,7 +105,7 @@
         <h2 style="color:#517da2; margin-bottom: 5px;">ជម្រាបសួរ! 🙏</h2>
         <p class="profile-upload-hint">ចុចលើរូបដើម្បីដាក់រូបប្រវត្តិរូបរបស់អ្នក</p>
         <div class="profile-upload-container" onclick="document.getElementById('login-avatar-input').click()">
-            <img id="login-avatar-preview" src="https://via.placeholder.com/100?text=Upload" alt="Avatar">
+            <img id="login-avatar-preview" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f464.png" alt="Avatar">
             <input type="file" id="login-avatar-input" accept="image/*" onchange="previewAvatar(event, 'login-avatar-preview')">
         </div>
         <input type="text" id="login-name" placeholder="ឈ្មោះរបស់អ្នក...">
@@ -105,9 +115,12 @@
 
 
 <header>
-    <div class="header-title">Cheat Reaksmey Chat 💬</div>
+    <div class="header-left">
+        <div class="header-title">Cheat Reaksmey Chat 💬</div>
+        <div class="online-counter"><span class="online-dot"></span><span id="online-count">កំពុងអនឡាញ: 0 នាក់</span></div>
+    </div>
     <div class="my-profile-btn" onclick="openSettingsModal()">
-        <img id="header-avatar" src="https://via.placeholder.com/100?text=User" alt="My Avatar">
+        <img id="header-avatar" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f464.png" alt="My Avatar">
         <span id="header-name">ឈ្មោះខ្ញុំ</span>
     </div>
 </header>
@@ -120,7 +133,7 @@
     <div class="profile-card" onclick="event.stopPropagation()">
         <h3 style="color:#517da2; margin-bottom:10px;">កែប្រែប្រវត្តិរូបផ្ទាល់ខ្លួន</h3>
         <div class="profile-upload-container" onclick="document.getElementById('edit-avatar-input').click()">
-            <img id="edit-avatar-preview" src="https://via.placeholder.com/100?text=Upload" alt="Avatar">
+            <img id="edit-avatar-preview" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f464.png" alt="Avatar">
             <input type="file" id="edit-avatar-input" accept="image/*" onchange="previewAvatar(event, 'edit-avatar-preview')">
         </div>
         <input type="text" id="edit-name-input" placeholder="ឈ្មោះថ្មីរបស់អ្នក...">
@@ -162,7 +175,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getDatabase, ref, push, onChildAdded, onChildRemoved, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    import { getDatabase, ref, push, onChildAdded, onChildRemoved, remove, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDPZNVhZlRxPesF-ID8N9IO_zhKWZsOn48",
@@ -179,13 +192,38 @@
 
     const CLOUD_NAME = "djz9t4aye"; 
     const UPLOAD_PRESET = "bbefttwh"; 
+    const DEFAULT_AVATAR = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f464.png";
 
     let replyingTo = null; 
     let selectedMsgId = null;
     let selectedMsgSender = null;
-    let tempAvatarUrl = ""; 
+    let tempAvatarUrl = localStorage.getItem('reak_avatar') || ""; 
 
-   
+    
+    function setupOnlinePresence() {
+        if(!localStorage.getItem('reak_name')) return;
+
+        const userStatusRef = push(ref(db, 'online_users'));
+        const connectedRef = ref(db, '.info/connected');
+        
+        onValue(connectedRef, (snap) => {
+            if (snap.val() === true) {
+                onDisconnect(userStatusRef).remove();
+                set(userStatusRef, {
+                    name: localStorage.getItem('reak_name'),
+                    timestamp: Date.now()
+                });
+            }
+        });
+
+        const onlineUsersRef = ref(db, 'online_users');
+        onValue(onlineUsersRef, (snapshot) => {
+            const count = snapshot.exists() ? snapshot.size : 0;
+            document.getElementById('online-count').innerText = `កំពុងអនឡាញ: ${count} នាក់`;
+        });
+    }
+
+    
     window.previewAvatar = async (e, previewId) => {
         const file = e.target.files[0];
         if(!file) return;
@@ -202,10 +240,12 @@
             const data = await response.json();
             if(data.secure_url) {
                 tempAvatarUrl = data.secure_url;
+            } else {
+                alert("បញ្ជូនរូបភាពប្រវត្តិរូបមិនជោគជ័យទៅកាន់ Cloudinary!");
             }
         } catch(err) {
             console.error(err);
-            alert("បញ្ជូនរូបភាពប្រវត្តិរូបមិនជោគជ័យ!");
+            alert("Network Error: មិនអាច Upload រូបភាពបានទេ!");
         }
     };
 
@@ -213,39 +253,36 @@
         const name = document.getElementById('login-name').value;
         if(name.trim()) {
             localStorage.setItem('reak_name', name);
-            if(tempAvatarUrl) {
-                localStorage.setItem('reak_avatar', tempAvatarUrl);
-            } else if(!localStorage.getItem('reak_avatar')) {
-                localStorage.setItem('reak_avatar', 'https://via.placeholder.com/100?text=User');
-            }
+            localStorage.setItem('reak_avatar', tempAvatarUrl || DEFAULT_AVATAR);
             document.getElementById('login-screen').style.display = 'none';
             updateHeaderProfile();
+            setupOnlinePresence();
         } else {
             alert("សូមបញ្ចូលឈ្មោះរបស់អ្នក!");
         }
     };
 
-   
     if(localStorage.getItem('reak_name')) {
         document.getElementById('login-screen').style.display = 'none';
-        if(!localStorage.getItem('reak_avatar')) {
-            localStorage.setItem('reak_avatar', 'https://via.placeholder.com/100?text=User');
+        if(!localStorage.getItem('reak_avatar') || localStorage.getItem('reak_avatar') === "undefined") {
+            localStorage.setItem('reak_avatar', DEFAULT_AVATAR);
         }
         updateHeaderProfile();
+        setupOnlinePresence();
     }
 
     function updateHeaderProfile() {
         const name = localStorage.getItem('reak_name');
-        const avatar = localStorage.getItem('reak_avatar');
+        const avatar = localStorage.getItem('reak_avatar') || DEFAULT_AVATAR;
         document.getElementById('header-name').innerText = name;
         document.getElementById('header-avatar').src = avatar;
     }
 
-  
     window.openSettingsModal = () => {
         document.getElementById('edit-name-input').value = localStorage.getItem('reak_name') || '';
-        document.getElementById('edit-avatar-preview').src = localStorage.getItem('reak_avatar') || 'https://via.placeholder.com/100?text=User';
-        tempAvatarUrl = localStorage.getItem('reak_avatar'); // Reset to current
+        const currentAvatar = localStorage.getItem('reak_avatar') || DEFAULT_AVATAR;
+        document.getElementById('edit-avatar-preview').src = currentAvatar;
+        tempAvatarUrl = currentAvatar; 
         document.getElementById('settings-modal').style.display = 'flex';
     };
 
@@ -257,20 +294,18 @@
         const newName = document.getElementById('edit-name-input').value.trim();
         if(newName) {
             localStorage.setItem('reak_name', newName);
-            if(tempAvatarUrl) {
-                localStorage.setItem('reak_avatar', tempAvatarUrl);
-            }
+            localStorage.setItem('reak_avatar', tempAvatarUrl || DEFAULT_AVATAR);
             updateHeaderProfile();
             closeSettingsModal();
+            location.reload();
         } else {
             alert("សូមបញ្ចូលឈ្មោះរបស់អ្នក!");
         }
     };
 
-   
     window.sendMessage = () => {
         const name = localStorage.getItem('reak_name');
-        const avatar = localStorage.getItem('reak_avatar') || '';
+        const avatar = localStorage.getItem('reak_avatar') || DEFAULT_AVATAR;
         const input = document.getElementById('msg-input');
         if(input.value.trim()) {
             const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -292,15 +327,14 @@
         }
     };
 
-    document.getElementById('msg-input').onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+    document.getElementById('msg-input').onkeypress = (e) => { if(e.key === 'Enter') window.sendMessage(); };
 
-    
     window.uploadFile = async (e) => {
         const file = e.target.files[0];
         if(!file) return;
 
         const name = localStorage.getItem('reak_name');
-        const avatar = localStorage.getItem('reak_avatar') || '';
+        const avatar = localStorage.getItem('reak_avatar') || DEFAULT_AVATAR;
         const loadingBar = document.getElementById('loading-bar');
         const inputField = document.getElementById('msg-input');
 
@@ -353,7 +387,6 @@
         }
     };
 
-    
     window.openActionMenu = (msgId, sender, textContent) => {
         selectedMsgId = msgId;
         selectedMsgSender = sender;
@@ -378,7 +411,7 @@
     window.triggerReply = () => {
         document.getElementById('reply-to-text').innerText = `${selectedMsgSender}: "${replyingTo}"`;
         document.getElementById('reply-banner').style.display = 'flex';
-        closeActionMenu();
+        window.closeActionMenu();
         document.getElementById('msg-input').focus();
     };
 
@@ -387,22 +420,20 @@
         document.getElementById('reply-banner').style.display = 'none';
     };
 
-   
     window.triggerDelete = () => {
         if(selectedMsgId) {
             const msgRef = ref(db, `global_messages/${selectedMsgId}`);
             remove(msgRef).then(() => {
-                closeActionMenu();
+                window.closeActionMenu();
             }).catch((err) => {
                 alert("លុបមិនបានទេ៖ " + err.message);
             });
         }
     };
 
-   
     window.showProfile = (name, avatar) => {
         document.getElementById('modal-name').innerText = name;
-        document.getElementById('modal-avatar').src = avatar || 'https://via.placeholder.com/100?text=User';
+        document.getElementById('modal-avatar').src = avatar || DEFAULT_AVATAR;
         document.getElementById('profile-modal').style.display = 'flex';
     };
 
@@ -410,7 +441,6 @@
         document.getElementById('profile-modal').style.display = 'none';
     };
 
-   
     onChildAdded(chatRef, (snapshot) => {
         const data = snapshot.val();
         const msgId = snapshot.key;
@@ -422,11 +452,11 @@
         rowDiv.className = `message-row ${isMe ? 'sent-row' : 'received-row'}`;
         rowDiv.id = `msg-${msgId}`;
         
-        const avatarUrl = data.avatar || 'https://via.placeholder.com/100?text=User';
+        const avatarUrl = data.avatar || DEFAULT_AVATAR;
         const escapedName = data.sender.replace(/'/g, "\\'");
         const escapedAvatar = avatarUrl.replace(/'/g, "\\'");
 
-        let content = `<img class="chat-avatar" src="${avatarUrl}" onclick="showProfile('${escapedName}', '${escapedAvatar}')">`;
+        let content = `<img class="chat-avatar" src="${avatarUrl}" onerror="this.src='${DEFAULT_AVATAR}'" onclick="showProfile('${escapedName}', '${escapedAvatar}')">`;
         content += `<div class="message-wrapper">`;
         content += `<div class="sender-name" onclick="showProfile('${escapedName}', '${escapedAvatar}')">${isMe ? 'ខ្ញុំ' : data.sender}</div>`;
         content += `<div class="message" onclick="openActionMenu('${msgId}', '${escapedName}', '${data.text ? data.text.replace(/'/g, "\\'") : (data.type === 'image' ? '[រូបភាព]' : '[វីដេអូ]')}')">`;
