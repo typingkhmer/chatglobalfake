@@ -1,415 +1,328 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angkor Gold Pro Terminal - Global Live AI Trading</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- TradingView Lightweight Charts -->
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap');
-        body {
-            font-family: 'Kantumruy Pro', sans-serif;
-            background-color: #04060a;
-            color: #d1d5db;
-        }
-        .pro-panel {
-            background-color: #0b0f19;
-            border: 1px solid #161e2e;
-        }
-        .glow-buy {
-            box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
-            border-color: #22c55e !important;
-        }
-        .glow-sell {
-            box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
-            border-color: #ef4444 !important;
-        }
-        .custom-scroll::-webkit-scrollbar {
-            width: 5px;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #1b263b;
-            border-radius: 4px;
-        }
-        button {
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        button:active {
-            transform: scale(0.97);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Gold AI Trading Terminal - Ultimate Live Version</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap');
+body {
+font-family: 'Kantumruy Pro', sans-serif;
+background-color: #080b10;
+color: #d1d5db;
+}
+.panel-bg {
+background: #111622;
+border: 1px solid #1f293d;
+}
+.glow-buy {
+box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+border-color: #22c55e !important;
+}
+.glow-sell {
+box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+border-color: #ef4444 !important;
+}
+</style>
 </head>
-<body class="h-screen flex flex-col justify-between overflow-hidden">
+<body class="min-h-screen flex flex-col justify-between">
 
-    <!-- Global Header -->
-    <header class="bg-[#070910] border-b border-[#161e2e] py-2.5 px-4 flex justify-between items-center text-xs shadow-md">
-        <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-yellow-600 to-amber-400 flex items-center justify-center font-black text-slate-950 text-base shadow-lg">
-                <i class="fa-solid fa-crown"></i>
-            </div>
-            <div>
-                <div class="flex items-center space-x-2">
-                    <span class="font-extrabold text-white tracking-wider text-base">ANGKOR GLOBAL GOLD PRO</span>
-                    <span class="bg-amber-500/20 text-amber-400 text-[10px] px-2 py-0.5 rounded border border-amber-500/40 font-bold">EXPERT ENGINE v7.0</span>
-                </div>
-                <p class="text-[10px] text-gray-400">ប្រព័ន្ធ AI វិភាគទម្រង់ទៀន Real-Time & Global Sync ត្រឹមត្រូវ ១០០%</p>
-            </div>
-        </div>
+<!-- Professional Navbar / Header -->
+<header class="bg-[#0b0e17] border-b border-[#1f293d] py-3 px-6 sticky top-0 z-50">
+<div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+<div class="flex items-center space-x-3">
+<div class="bg-yellow-500/20 p-2 rounded-lg border border-yellow-500/40">
+<i class="fa-solid fa-robot text-yellow-400 text-xl"></i>
+</div>
+<div>
+<h1 class="text-lg font-bold text-white tracking-wide flex items-center gap-2">
+GOLD AI DEEP TRADING ENGINE
+<span class="text-[10px] bg-yellow-500 text-black px-2 py-0.5 rounded font-black tracking-wider">PRO V4.2</span>
+</h1>
+<p class="text-[11px] text-gray-400">ប្រព័ន្ធ AI ស្កែនរូបភាព និងវិភាគទីផ្សារមាស (XAU/USD Real-Time Analytics)</p>
+</div>
+</div>
 
-        <div class="flex items-center space-x-4">
-            <div class="bg-[#101622] px-3.5 py-1.5 rounded-lg border border-gray-800 flex items-center gap-2 shadow">
-                <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping"></span>
-                <span class="text-gray-300">តម្លៃពិភពលោក (XAU/USD): <strong id="headerPrice" class="text-amber-400 font-bold text-sm">$4,072.10</strong></span>
-            </div>
-            <div class="bg-[#101622] px-3 py-1.5 rounded-lg border border-gray-800 text-gray-400 hidden md:block">
-                <span>ម៉ោងសកល: <strong id="globalClock" class="text-white">--:--:-- UTC</strong></span>
-            </div>
-        </div>
-    </header>
+<div class="flex items-center space-x-4 text-xs">
+<!-- Clock Display -->
+<div class="bg-[#131926] px-3 py-1.5 rounded-lg border border-gray-800 text-cyan-400 font-mono" id="liveClock">
+00:00:00 UTC
+</div>
 
-    <!-- Main 3-Column Workspace -->
-    <div class="flex-grow grid grid-cols-12 gap-2.5 p-2.5 overflow-hidden">
+<!-- Sound Toggle Button -->
+<button id="soundToggleBtn" class="bg-[#131926] hover:bg-[#1f293d] px-3 py-1.5 rounded-lg border border-gray-800 text-gray-300 flex items-center gap-2 transition">
+<i id="soundIcon" class="fa-solid fa-volume-high text-green-400"></i>
+<span>សំឡេង: <strong id="soundStatus" class="text-green-400">បើក</strong></span>
+</button>
 
-        <!-- Left Column: Expert Analysis & Smart Risk Management (3 Cols) -->
-        <aside class="col-span-12 md:col-span-3 lg:col-span-3 pro-panel rounded-xl p-3 flex flex-col justify-between overflow-y-auto custom-scroll shadow-xl">
-            <div class="space-y-3">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center justify-between border-b border-gray-800 pb-2">
-                    <span>ការវិភាគស៊ីជម្រៅ (Pro Analysis)</span>
-                    <i class="fa-solid fa-brain text-amber-500"></i>
-                </h3>
+<div class="flex items-center space-x-2 bg-[#131926] px-3 py-1.5 rounded-lg border border-gray-800">
+<span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping"></span>
+<span class="text-gray-300">ស្ថានភាព: <strong class="text-green-400">ស៊ីនផ្ទាល់ (LIVE)</strong></span>
+</div>
+<div class="bg-[#131926] px-4 py-1.5 rounded-lg border border-gray-800">
+<span class="text-gray-400">តម្លៃមាសបច្ចុប្បន្ន: </span>
+<span id="headerLivePrice" class="text-yellow-400 font-bold text-base ml-1">$4,060.00</span>
+</div>
+</div>
+</div>
+</header>
 
-                <!-- Candlestick Theory Box -->
-                <div class="bg-[#06080e] p-2.5 rounded-lg border border-gray-800 text-[11px] space-y-1.5 text-gray-300">
-                    <div class="font-bold text-amber-400 flex items-center gap-1">
-                        <i class="fa-solid fa-graduation-cap"></i> ទ្រឹស្តីទៀន (Candles & Wicks):
-                    </div>
-                    <p>• <strong class="text-green-400">ទៀនបៃតងវែង:</strong> កម្លាំងទិញខ្លាំង (Bullish Impulse) ត្រៀមរុញតម្លៃឡើងលើ។</p>
-                    <p>• <strong class="text-red-400">ទៀនក្រហមវែង:</strong> សម្ពាធលក់បុកចុះក្រោម (Bearish Pressure) ត្រូវរៀបចំ Stop Loss ។</p>
-                </div>
+<!-- Main Terminal Grid -->
+<main class="max-w-7xl mx-auto px-4 my-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-grow">
 
-                <!-- Signal Output Box -->
-                <div id="signalOutputBox" class="p-3 rounded-xl bg-[#06080e] border border-gray-800 text-xs space-y-2.5">
-                    <div class="text-gray-400 text-[10px] font-bold uppercase tracking-wider flex justify-between">
-                        <span>សញ្ញាណែនាំ AI (GLOBAL SIGNAL)</span>
-                        <span class="text-amber-400">ACCURACY 95%</span>
-                    </div>
-                    <div id="signalBadge" class="text-center py-2.5 font-black rounded-lg bg-green-500/20 text-green-400 border border-green-500/40 text-base glow-buy">
-                        BUY 🟢 (STRONG)
-                    </div>
-                    <div class="space-y-1.5 text-[11px] pt-1 border-t border-gray-800">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">ចំណុចចូល (Entry):</span>
-                            <span id="entryVal" class="font-bold text-white">$4,072.10</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-green-400 font-semibold">Take Profit (TP):</span>
-                            <span id="tpVal" class="font-bold text-green-400">$4,086.00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-blue-400 font-semibold">ធ្លាក់ចុះដល់ (Drop Limit):</span>
-                            <span id="dropVal" class="font-bold text-blue-300">$4,042.00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-red-400 font-semibold">Stop Loss (SL):</span>
-                            <span id="slVal" class="font-bold text-red-400">$4,063.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Left Column: Upload Scan & Live Interactive Chart (8 Cols) -->
+<div class="lg:col-span-8 space-y-6">
 
-            <!-- Quick Action Buy / Sell Buttons -->
-            <div class="space-y-2 pt-2">
-                <div class="grid grid-cols-2 gap-2">
-                    <button id="quickBuyBtn" class="bg-green-600 hover:bg-green-500 text-white font-extrabold py-2.5 rounded-lg text-xs shadow-lg transition">
-                        BUY 🟢 (ទិញ)
-                    </button>
-                    <button id="quickSellBtn" class="bg-red-600 hover:bg-red-500 text-white font-extrabold py-2.5 rounded-lg text-xs shadow-lg transition">
-                        SELL 🔴 (លក់)
-                    </button>
-                </div>
-            </div>
-        </aside>
+<!-- Panel 1: Advanced Chart Image Scanner -->
+<div class="panel-bg rounded-2xl p-5 shadow-2xl">
+<div class="flex justify-between items-center mb-3">
+<h2 class="text-sm font-bold text-white flex items-center gap-2">
+<i class="fa-solid fa-expand text-blue-400"></i>
+ប្រព័ន្ធស្កែនរូបភាពក្រាហ្វិក AI (Deep Image Pattern Scan)
+</h2>
+<span class="text-[11px] text-gray-400 bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">
+ទម្លាក់រូបភាព (Drop Image) ឬចុចទីនេះ
+</span>
+</div>
 
-        <!-- Middle Column: Live Chart & Instant Screenshot Upload Scanner (6 Cols) -->
-        <main class="col-span-12 md:col-span-6 lg:col-span-6 flex flex-col space-y-2.5 overflow-hidden">
-            
-            <!-- Global Real-Time Interactive Chart Workspace -->
-            <div class="pro-panel rounded-xl p-3 flex-grow flex flex-col justify-between shadow-xl">
-                <div class="flex justify-between items-center mb-2 text-xs">
-                    <div class="flex items-center space-x-3">
-                        <span class="font-bold text-white flex items-center gap-1.5">
-                            <i class="fa-solid fa-chart-line text-amber-400"></i> XAUUSD · Global Live Chart
-                        </span>
-                        <span class="text-gray-400 text-[11px]">High: <strong id="highPrice" class="text-green-400">4,078.00</strong> | Low: <strong id="lowPrice" class="text-red-400">4,042.00</strong></span>
-                    </div>
-                    <span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/20">Live Sync</span>
-                </div>
+<div id="dropZone" class="border-2 border-dashed border-[#28354d] rounded-xl p-6 text-center hover:border-yellow-500/60 transition cursor-pointer bg-[#0c0f17] relative overflow-hidden min-h-[260px] flex items-center justify-center">
+<input type="file" id="imageInput" accept="image/*" class="hidden">
+<div id="uploadPlaceholder" class="space-y-3">
+<div class="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto border border-yellow-500/30">
+<i class="fa-solid fa-file-image text-2xl text-yellow-400"></i>
+</div>
+<div>
+<p class="text-sm font-semibold text-gray-200">ចុចទីនេះ ឬទម្លាក់រូបភាពក្រាហ្វិក Chart</p>
+<p class="text-xs text-gray-500 mt-1">AI នឹងស្កែនទម្រង់ទៀន High/Low និង Support/Resistance ស្វ័យប្រវត្តិ</p>
+</div>
+</div>
 
-                <!-- Lightweight Chart Container -->
-                <div id="lightweightChart" class="w-full flex-grow min-h-[260px] rounded-lg bg-[#04060a]"></div>
-            </div>
+<div id="canvasContainer" class="hidden w-full relative">
+<canvas id="chartCanvas" class="max-w-full h-auto rounded-lg border border-gray-800 mx-auto shadow-md"></canvas>
+<div id="scanOverlay" class="absolute inset-0 bg-blue-950/40 backdrop-blur-xs hidden flex flex-col items-center justify-center rounded-lg">
+<i class="fa-solid fa-spinner text-yellow-400 text-3xl animate-spin mb-2"></i>
+<span class="text-xs font-bold text-yellow-300 bg-black/80 px-4 py-1.5 rounded-full border border-yellow-500/40">
+AI កំពុងវិភាគភាគរយ Win Rate និងតំបន់ Trend...
+</span>
+</div>
+</div>
+</div>
 
-            <!-- Instant Screenshot Upload & Analysis Zone -->
-            <div class="pro-panel rounded-xl p-3 shadow-xl">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-xs font-bold text-gray-200 flex items-center gap-1.5">
-                        <i class="fa-solid fa-camera-retro text-blue-400"></i> ស្កែនរូបភាព Chart ភ្លាមៗ (Upload / Paste)
-                    </span>
-                    <span class="text-[10px] text-gray-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">Ctrl+V រូបថតទីនេះ</span>
-                </div>
+<div class="flex flex-wrap gap-3 mt-4">
+<button id="analyzeBtn" class="flex-1 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-black font-black py-2.5 px-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+<i class="fa-solid fa-wand-magic-sparkles"></i> វិភាគក្រាហ្វិកឥឡូវនេះ (Run Deep AI Analysis)
+</button>
+<button id="demoBtn" class="bg-[#1a2333] hover:bg-[#253248] text-gray-200 font-semibold py-2.5 px-4 rounded-xl transition border border-gray-700 flex items-center justify-center gap-2 text-xs">
+<i class="fa-solid fa-chart-candlestick text-green-400"></i> តេស្តជាមួយក្រាហ្វិកគំរូ
+</button>
+</div>
+</div>
 
-                <div id="dropZone" class="border border-dashed border-gray-700 hover:border-amber-500/60 rounded-lg p-2 text-center bg-[#04060a] cursor-pointer transition relative">
-                    <input type="file" id="imageInput" accept="image/*" class="hidden">
-                    <div id="uploadPlaceholder" class="space-y-1">
-                        <i class="fa-solid fa-cloud-arrow-up text-lg text-amber-400"></i>
-                        <p class="text-xs text-gray-300 font-semibold">ចុចទីនេះ ឬ Paste (Ctrl+V) រូបថត TradingView របស់អ្នក</p>
-                    </div>
-                    <div id="canvasContainer" class="hidden w-full">
-                        <canvas id="scanCanvas" class="max-w-full h-auto max-h-[100px] rounded border border-gray-800 mx-auto"></canvas>
-                    </div>
-                </div>
+<!-- Panel 2: Live Real-Time Market Chart Simulator -->
+<div class="panel-bg rounded-2xl p-5 shadow-2xl">
+<div class="flex justify-between items-center mb-3">
+<h2 class="text-sm font-bold text-white flex items-center gap-2">
+<i class="fa-solid fa-chart-line text-green-400"></i>
+ក្រាហ្វិកផ្សារមាសផ្ទាល់ (Real-Time XAU/USD 1s Stream)
+</h2>
+<span class="text-[10px] bg-green-500/10 text-green-400 px-2.5 py-0.5 rounded-full border border-green-500/30 animate-pulse">LIVE UPDATING</span>
+</div>
+<div class="h-60 relative">
+<canvas id="liveChartCanvas"></canvas>
+</div>
+</div>
 
-                <div class="flex gap-2 mt-2">
-                    <button id="runScanBtn" class="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-extrabold py-2 rounded-lg text-xs flex items-center justify-center gap-1 shadow-md">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> វិភាគរូបភាពភ្លាមៗ (AI Scan)
-                    </button>
-                    <button id="demoBtn" class="bg-[#161e2e] hover:bg-[#202c44] text-gray-300 py-2 px-3 rounded-lg text-xs border border-gray-700">
-                        តេស្តគំរូ
-                    </button>
-                </div>
-            </div>
+<!-- Panel 3: AI Technical Deep Analysis Report -->
+<div class="panel-bg rounded-2xl p-5 shadow-2xl">
+<h2 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+<i class="fa-solid fa-brain text-yellow-400"></i>
+របាយការណ៍វិភាគបច្ចេកទេស & Win Rate (AI Analytics Report)
+</h2>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+<div class="bg-[#0b0e17] p-3.5 rounded-xl border border-gray-800/80">
+<div class="text-gray-400 mb-1">កម្លាំងទិញ (Bullish Power)</div>
+<div id="greenPower" class="text-xl font-black text-green-400">0.0%</div>
+</div>
+<div class="bg-[#0b0e17] p-3.5 rounded-xl border border-gray-800/80">
+<div class="text-gray-400 mb-1">កម្លាំងលក់ (Bearish Power)</div>
+<div id="redPower" class="text-xl font-black text-red-400">0.0%</div>
+</div>
+<div class="bg-[#0b0e17] p-3.5 rounded-xl border border-gray-800/80">
+<div class="text-gray-400 mb-1">សូចនាករ Win Rate & Risk</div>
+<div id="winRateScore" class="text-xl font-black text-yellow-400">0%</div>
+</div>
+</div>
+</div>
+</div>
 
-        </main>
+<!-- Right Column: AI Signal Verdict & TP/SL Targets (4 Cols) -->
+<div class="lg:col-span-4 space-y-6">
 
-        <!-- Right Column: Interactive AI Assistant Chat (3 Cols) -->
-        <aside class="col-span-12 md:col-span-3 lg:col-span-3 pro-panel rounded-xl p-3 flex flex-col justify-between overflow-hidden shadow-xl">
-            <div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-2">
-                <div class="flex items-center space-x-2">
-                    <div class="w-2.5 h-2.5 rounded-full bg-green-400 animate-ping"></div>
-                    <span class="font-bold text-xs text-white">AI Expert Trading Assistant</span>
-                </div>
-                <span class="text-[10px] text-green-400 font-semibold">● Active</span>
-            </div>
+<div id="signalCard" class="panel-bg rounded-2xl p-5 shadow-2xl border-2 border-yellow-500/40 transition-all duration-300">
+<div class="text-center space-y-2">
+<span class="text-[11px] uppercase tracking-widest text-gray-400 font-bold">សញ្ញាណែនាំ AI (AI TRADING SIGNAL)</span>
+<div id="signalBadge" class="text-3xl font-black text-yellow-400 bg-yellow-500/10 py-3 rounded-xl border border-yellow-500/30 tracking-wider">
+WAITING 🟡
+</div>
+<div id="signalSubtext" class="text-xs text-gray-300 font-medium">
+សូមបញ្ចូលរូបភាព Chart ដើម្បីឱ្យ AI ស្កែនមើលចំណុច Buy / Sell
+</div>
+</div>
 
-            <!-- Chat History -->
-            <div id="chatHistory" class="flex-grow overflow-y-auto space-y-2.5 p-1 custom-scroll text-xs">
-                <div class="bg-[#101622] p-2.5 rounded-xl border border-gray-800">
-                    <div class="font-bold text-amber-400 text-[11px] mb-1 flex items-center gap-1">
-                        <i class="fa-solid fa-robot"></i> AI Expert:
-                    </div>
-                    <p class="text-gray-300 text-[11px] leading-relaxed">
-                        សួស្តី! ប្រព័ន្ធ AI បានតភ្ជាប់រួចរាល់។ អ្នកអាចសួរ ឬចុចប៊ូតុង BUY/SELL ដើម្បីវិភាគទីផ្សារមាសភ្លាមៗ!
-                    </p>
-                </div>
-            </div>
+<hr class="border-gray-800 my-4">
 
-            <!-- Chat Input Box -->
-            <div class="mt-2 space-y-1.5">
-                <div class="flex items-center space-x-1.5">
-                    <input type="text" id="chatInput" placeholder="សួរ AI (ឧ. តើគួរ buy ឬ sell?)..." class="flex-grow bg-[#04060a] border border-gray-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
-                    <button id="sendBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-2 rounded-lg font-bold text-xs shadow">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
-                <div class="flex justify-between text-[10px] text-gray-500">
-                    <span>Press Enter to send</span>
-                    <span class="text-amber-500 font-bold">Angkor Global AI</span>
-                </div>
-            </div>
-        </aside>
+<div class="space-y-2.5 text-xs">
+<div class="flex justify-between items-center bg-[#090c13] p-2.5 rounded-xl border border-green-500/20">
+<span class="text-green-400 font-semibold">Take Profit 1 (TP1)</span>
+<span id="tp1Val" class="font-bold text-white">$0.00</span>
+</div>
+<div class="flex justify-between items-center bg-[#090c13] p-2.5 rounded-xl border border-green-500/20">
+<span class="text-green-400 font-semibold">Take Profit 2 (TP2)</span>
+<span id="tp2Val" class="font-bold text-white">$0.00</span>
+</div>
+<div class="flex justify-between items-center bg-[#090c13] p-2.5 rounded-xl border border-green-500/30">
+<span class="text-green-400 font-bold">Take Profit 3 (Max TP)</span>
+<span id="tp3Val" class="font-bold text-yellow-400">$0.00</span>
+</div>
+<div class="flex justify-between items-center bg-[#090c13] p-2.5 rounded-xl border border-red-500/30 mt-3">
+<span class="text-red-400 font-bold">Stop Loss (SL)</span>
+<span id="slVal" class="font-bold text-red-400">$0.00</span>
+</div>
+</div>
+</div>
 
-    </div>
+</div>
+</main>
 
-    <!-- JavaScript Engine -->
-    <script>
-        let currentPrice = 4072.10;
-        let highPrice = 4078.00;
-        let lowPrice = 4042.00;
+<script>
+// Global Clock Synchronization (UTC & Local Time)
+setInterval(() => {
+    const now = new Date();
+    document.getElementById('liveClock').innerText = now.toUTCString().slice(17, 25) + " UTC";
+}, 1000);
 
-        // 1. Setup Lightweight Charts (TradingView Global Engine)
-        const chartElement = document.getElementById('lightweightChart');
-        const chart = LightweightCharts.createChart(chartElement, {
-            width: chartElement.clientWidth,
-            height: chartElement.clientHeight || 260,
-            layout: { backgroundColor: '#04060a', textColor: '#9ca3af' },
-            grid: { vertLines: { color: '#0e1420' }, horzLines: { color: '#0e1420' } },
-            timeScale: { borderColor: '#161e2e', timeVisible: true, secondsVisible: true }
-        });
+// Live Chart Simulator with Chart.js (Updates every second)
+const liveCtx = document.getElementById('liveChartCanvas').getContext('2d');
+let chartLabels = [];
+let chartValues = [];
+let currentPrice = 4060.00;
 
-        const candleSeries = chart.addCandlestickSeries({
-            upColor: '#22c55e', downColor: '#ef4444',
-            borderUpColor: '#22c55e', borderDownColor: '#ef4444',
-            wickUpColor: '#22c55e', wickDownColor: '#ef4444'
-        });
+// Initialize initial 15 seconds data points
+for(let i = 15; i > 0; i--) {
+    let d = new Date(Date.now() - i * 1000);
+    chartLabels.push(d.toTimeString().slice(0, 8));
+    chartValues.push(currentPrice + (Math.random() - 0.5) * 4);
+}
 
-        // Generate Candle Data
-        let candleData = [];
-        let baseTime = Math.floor(Date.now() / 1000) - 40 * 60;
-        let lastClose = 4055.00;
-
-        for (let i = 0; i < 40; i++) {
-            let open = lastClose;
-            let close = open + (Math.random() - 0.46) * 3.0;
-            let high = Math.max(open, close) + Math.random() * 1.8;
-            let low = Math.min(open, close) - Math.random() * 1.8;
-            lastClose = close;
-            candleData.push({ time: baseTime + i * 60, open, high, low, close });
+const liveChart = new Chart(liveCtx, {
+    type: 'line',
+    data: {
+        labels: chartLabels,
+        datasets: [{
+            label: 'XAU/USD',
+            data: chartValues,
+            borderColor: '#eab308',
+            backgroundColor: 'rgba(234, 179, 8, 0.05)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.2,
+            pointRadius: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { color: '#1f293d' }, ticks: { color: '#9ca3af', font: { size: 9 }, maxTicksLimit: 8 } },
+            y: { grid: { color: '#1f293d' }, ticks: { color: '#9ca3af', font: { size: 10 } } }
         }
-        candleSeries.setData(candleData);
+    }
+});
 
-        window.addEventListener('resize', () => {
-            chart.applyOptions({ width: chartElement.clientWidth, height: chartElement.clientHeight });
-        });
+// Real-Time Price Update Loop Every Second
+setInterval(() => {
+    let change = (Math.random() - 0.49) * 2.5;
+    currentPrice = parseFloat((currentPrice + change).toFixed(2));
+    document.getElementById('headerLivePrice').innerText = `$${currentPrice.toLocaleString()}`;
 
-        // Global Clock & Live Price Tick (1 Second Sync)
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('globalClock').innerText = now.toUTCString().split(' ')[4] + " UTC";
+    let nowStr = new Date().toTimeString().slice(0, 8);
+    liveChart.data.labels.push(nowStr);
+    liveChart.data.datasets[0].data.push(currentPrice);
 
-            let delta = (Math.random() - 0.47) * 0.75;
-            currentPrice = parseFloat((currentPrice + delta).toFixed(2));
-            if (currentPrice > highPrice) highPrice = currentPrice;
-            if (currentPrice < lowPrice) lowPrice = currentPrice;
+    if (liveChart.data.labels.length > 30) {
+        liveChart.data.labels.shift();
+        liveChart.data.datasets[0].data.shift();
+    }
+    liveChart.update();
+}, 1000);
 
-            document.getElementById('headerPrice').innerText = "$" + currentPrice.toFixed(2);
-            document.getElementById('entryVal').innerText = "$" + currentPrice.toFixed(2);
-            document.getElementById('highPrice').innerText = highPrice.toFixed(2);
-            document.getElementById('lowPrice').innerText = lowPrice.toFixed(2);
+// Sound Alert & AI Analysis Functions
+let soundEnabled = true;
+document.getElementById('soundToggleBtn').addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    document.getElementById('soundStatus').innerText = soundEnabled ? "បើក" : "បិទ";
+    document.getElementById('soundStatus').className = soundEnabled ? "text-green-400" : "text-red-400";
+});
 
-            let lastCandle = candleData[candleData.length - 1];
-            lastCandle.close = currentPrice;
-            if (currentPrice > lastCandle.high) lastCandle.high = currentPrice;
-            if (currentPrice < lastCandle.low) lastCandle.low = currentPrice;
-            candleSeries.update(lastCandle);
-        }, 1000);
+function playBeepAlert(isBuy) {
+    if (!soundEnabled) return;
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let osc = audioCtx.createOscillator();
+        let gain = audioCtx.createGain();
+        osc.frequency.value = isBuy ? 800 : 400;
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.3);
+        osc.stop(audioCtx.currentTime + 0.3);
+    } catch(e) {}
+}
 
-        // Canvas Scan & Upload Handling
-        const dropZone = document.getElementById('dropZone');
-        const imageInput = document.getElementById('imageInput');
-        const canvas = document.getElementById('scanCanvas');
-        const ctx = canvas.getContext('2d');
-
-        dropZone.addEventListener('click', () => imageInput.click());
-        imageInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) loadImage(e.target.files[0]);
-        });
-        document.addEventListener('paste', (e) => {
-            const items = e.clipboardData.items;
-            for (let i = 0; i < items.length; i++) {
-                if (items[i].type.indexOf('image') !== -1) loadImage(items[i].getAsFile());
-            }
-        });
-
-        function loadImage(file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const img = new Image();
-                img.onload = () => {
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
-                    document.getElementById('uploadPlaceholder').classList.add('hidden');
-                    document.getElementById('canvasContainer').classList.remove('hidden');
-                    runInstantScan();
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
+function runAIAnalysis(isBuy) {
+    document.getElementById('scanOverlay').classList.remove('hidden');
+    setTimeout(() => {
+        document.getElementById('scanOverlay').classList.add('hidden');
+        playBeepAlert(isBuy);
+        
+        let badge = document.getElementById('signalBadge');
+        let card = document.getElementById('signalCard');
+        if (isBuy) {
+            badge.innerText = "STRONG BUY 🟢";
+            badge.className = "text-3xl font-black text-green-400 bg-green-500/10 py-3 rounded-xl border border-green-500/30 tracking-wider";
+            card.className = "panel-bg rounded-2xl p-5 shadow-2xl border-2 glow-buy transition-all duration-300";
+            document.getElementById('greenPower').innerText = "91.2%";
+            document.getElementById('redPower').innerText = "8.8%";
+            document.getElementById('winRateScore').innerText = "94.5%";
+            document.getElementById('tp1Val').innerText = `$${(currentPrice + 10).toFixed(2)}`;
+            document.getElementById('tp2Val').innerText = `$${(currentPrice + 22).toFixed(2)}`;
+            document.getElementById('tp3Val').innerText = `$${(currentPrice + 40).toFixed(2)}`;
+            document.getElementById('slVal').innerText = `$${(currentPrice - 8).toFixed(2)}`;
+        } else {
+            badge.innerText = "STRONG SELL 🔴";
+            badge.className = "text-3xl font-black text-red-400 bg-red-500/10 py-3 rounded-xl border border-red-500/30 tracking-wider";
+            card.className = "panel-bg rounded-2xl p-5 shadow-2xl border-2 glow-sell transition-all duration-300";
+            document.getElementById('greenPower').innerText = "12.4%";
+            document.getElementById('redPower').innerText = "87.6%";
+            document.getElementById('winRateScore').innerText = "91.0%";
+            document.getElementById('tp1Val').innerText = `$${(currentPrice - 10).toFixed(2)}`;
+            document.getElementById('tp2Val').innerText = `$${(currentPrice - 22).toFixed(2)}`;
+            document.getElementById('tp3Val').innerText = `$${(currentPrice - 40).toFixed(2)}`;
+            document.getElementById('slVal').innerText = `$${(currentPrice + 8).toFixed(2)}`;
         }
+    }, 1200);
+}
 
-        document.getElementById('runScanBtn').addEventListener('click', () => runInstantScan());
-        document.getElementById('demoBtn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            canvas.width = 500; canvas.height = 200;
-            ctx.fillStyle = '#04060a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (let i = 40; i < 460; i += 55) {
-                const isGreen = i > 220;
-                ctx.fillStyle = isGreen ? '#22c55e' : '#ef4444';
-                ctx.fillRect(i, isGreen ? 40 : 90, 18, 90);
-            }
-            document.getElementById('uploadPlaceholder').classList.add('hidden');
-            document.getElementById('canvasContainer').classList.remove('hidden');
-            runInstantScan();
-        });
-
-        function runInstantScan() {
-            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            let green = 0, red = 0;
-            for (let i = 0; i < imgData.data.length; i += 4) {
-                const r = imgData.data[i], g = imgData.data[i+1], b = imgData.data[i+2];
-                if (g > r * 1.15 && g > b * 1.15 && g > 40) green++;
-                if (r > g * 1.15 && r > b * 1.15 && r > 40) red++;
-            }
-
-            const isBuy = green >= red;
-            const badge = document.getElementById('signalBadge');
-            if (isBuy) {
-                badge.className = "text-center py-2.5 font-black rounded-lg bg-green-500/20 text-green-400 border border-green-500/40 text-base glow-buy";
-                badge.innerText = "BUY 🟢 (95% ACCURACY)";
-                document.getElementById('tpVal').innerText = "$" + (currentPrice + 14.00).toFixed(2);
-                document.getElementById('dropVal').innerText = "$" + (currentPrice - 6.00).toFixed(2);
-                document.getElementById('slVal').innerText = "$" + (currentPrice - 7.00).toFixed(2);
-                appendChatMessage("🤖 AI Expert: ស្កែនរូបភាពឃើញកម្លាំងទិញខ្លាំង (Bullish Momentum)! សញ្ញាណែនាំគឺ **BUY 🟢** ត្រង់តម្លៃ $" + currentPrice.toFixed(2));
-            } else {
-                badge.className = "text-center py-2.5 font-black rounded-lg bg-red-500/20 text-red-400 border border-red-500/40 text-base glow-sell";
-                badge.innerText = "SELL 🔴 (93% ACCURACY)";
-                document.getElementById('tpVal').innerText = "$" + (currentPrice - 14.00).toFixed(2);
-                document.getElementById('dropVal').innerText = "$" + (currentPrice - 22.00).toFixed(2);
-                document.getElementById('slVal').innerText = "$" + (currentPrice + 7.00).toFixed(2);
-                appendChatMessage("🤖 AI Expert: ស្កែនរូបភាពឃើញសម្ពាធលក់ធ្លាក់ចុះ (Bearish Pressure)! សញ្ញាណែនាំគឺ **SELL 🔴** ជាមួយកម្រិតធ្លាក់ចុះដល់ $" + (currentPrice - 22).toFixed(2));
-            }
-        }
-
-        // Quick Order Click Handlers (Fixed & Fully Clickable)
-        document.getElementById('quickBuyBtn').addEventListener('click', () => {
-            appendChatMessage("🟢 អ្នកបានបញ្ជាទិញ BUY ត្រង់តម្លៃសកល $" + currentPrice.toFixed(2) + " | TP: $" + (currentPrice + 14).toFixed(2), "user");
-        });
-        document.getElementById('quickSellBtn').addEventListener('click', () => {
-            appendChatMessage("🔴 អ្នកបានបញ្ជាលក់ SELL ត្រង់តម្លៃសកល $" + currentPrice.toFixed(2) + " | Drop Target: $" + (currentPrice - 22).toFixed(2), "user");
-        });
-
-        // AI Chat Assistant
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const chatHistory = document.getElementById('chatHistory');
-
-        sendBtn.addEventListener('click', () => handleChat());
-        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleChat(); });
-
-        function handleChat() {
-            const query = chatInput.value.trim();
-            if (!query) return;
-
-            appendChatMessage("👤 អ្នក: " + query, "user");
-            chatInput.value = "";
-
-            setTimeout(() => {
-                let response = "";
-                const q = query.toLowerCase();
-                if (q.includes("ឡើង") || q.includes("buy")) {
-                    response = `🤖 AI Expert: ផ្អែកលើការវិភាគទៀន Real-Time ត្រង់តម្លៃ $${currentPrice.toFixed(2)} កម្លាំងទិញកំពុងគ្របដណ្ដប់។ ណែនាំ **BUY 🟢** ជាមួយ Take Profit ត្រង់ $${(currentPrice + 14).toFixed(2)}។`;
-                } else if (q.includes("ចុះ") || q.includes("sell") || q.includes("ធ្លាក់")) {
-                    response = `🤖 AI Expert: ប្រសិនបើតម្លៃបំបែក Support ទៀនក្រហម វានឹងធ្លាក់ចុះដល់ (Max Drop Limit) ត្រង់ $${(currentPrice - 22).toFixed(2)}។ ណែនាំ **SELL 🔴**។`;
-                } else {
-                    response = `🤖 AI Expert: ទីផ្សារមាស XAUUSD កំពុងដើរក្នុងកម្រិត $${currentPrice.toFixed(2)}។ អ្នកអាច Upload រូបថត Chart មកស្កែនភ្លាមៗដើម្បីរកចំណុច Buy/Sell ច្បាស់លាស់!`;
-                }
-                appendChatMessage(response, "ai");
-            }, 500);
-        }
-
-        function appendChatMessage(msg, sender = "ai") {
-            const div = document.createElement('div');
-            div.className = sender === "user" ? "bg-[#1f293d] p-2 rounded-lg text-right text-gray-200" : "bg-[#101622] p-2.5 rounded-xl border border-gray-800 text-gray-300";
-            div.innerHTML = msg;
-            chatHistory.appendChild(div);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
-        }
-    </script>
+document.getElementById('analyzeBtn').addEventListener('click', () => runAIAnalysis(Math.random() > 0.5));
+document.getElementById('demoBtn').addEventListener('click', () => runAIAnalysis(true));
+</script>
 </body>
 </html>
