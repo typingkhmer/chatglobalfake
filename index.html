@@ -352,7 +352,7 @@
     // System Variables
     let currentPrice = 4068.50;
     let currentInterval = "15";
-    let customGeminiApiKey = ""; // Leaves blank to use runtime default API Key context
+    let customGeminiApiKey = "AIzaSyBHE1_d1mecPD9ZOMXsNmiCVD5k0w3BJU8"; // Integrated user API key
 
     // Clock & Live Price Simulation Ticker
     setInterval(() => {
@@ -409,7 +409,6 @@
         let card = document.getElementById('signalCard');
         let subtext = document.getElementById('signalSubtext');
 
-        // Fixed mathematical indicator formula syntax errors
         let timeKey = Math.floor(Date.now() / (1000 * 60 * 3));
         let calculatedRSI = 32 + ((timeKey * 11 + Math.floor(currentPrice)) % 42);
         
@@ -488,7 +487,6 @@
     // GOOGLE GEMINI AI INTEGRATION ENGINE
     // ==========================================
     
-    // Call Gemini API directly using generateContent REST endpoint
     async function callGeminiApi(promptText, systemInstruction = "") {
         const apiKey = customGeminiApiKey || "";
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
@@ -523,7 +521,6 @@
         }
     }
 
-    // Ask Gemini AI to generate complete trade setup
     async function askGeminiFullSetup() {
         switchTab('analysis');
 
@@ -587,7 +584,6 @@ Respond in JSON format only with these keys:
         }
     }
 
-    // AI Chat Assistant Logic
     async function sendChatMessage() {
         const input = document.getElementById('chatInput');
         const text = input.value.trim();
@@ -639,7 +635,6 @@ Use clear bullet points, clean formatting, and practical risk management advice.
         sendChatMessage();
     }
 
-    // Fundamental News Summarizer via Gemini AI
     async function summarizeNewsWithGemini() {
         const newsBox = document.getElementById('aiNewsSummaryBox');
         const newsContent = document.getElementById('aiNewsSummaryContent');
@@ -667,7 +662,6 @@ Provide a short summary in Khmer detailing:
         }
     }
 
-    // Modal API Key Functions
     function openApiKeyModal() {
         document.getElementById('apiKeyModal').classList.remove('hidden');
     }
@@ -681,21 +675,19 @@ Provide a short summary in Khmer detailing:
             document.getElementById('apiKeyStatusText').innerText = "Custom Key Set";
             document.getElementById('apiKeyStatusText').className = "text-green-400 font-bold";
         } else {
-            customGeminiApiKey = "";
+            customGeminiApiKey = "AIzaSyBHE1_d1mecPD9ZOMXsNmiCVD5k0w3BJU8";
             document.getElementById('apiKeyStatusText').innerText = "Gemini API Active";
             document.getElementById('apiKeyStatusText').className = "";
         }
         closeApiKeyModal();
     }
 
-    // Enter Key Handler for Chat Input
     document.getElementById('chatInput').addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             sendChatMessage();
         }
     });
 
-    // Initial Load
     window.addEventListener('DOMContentLoaded', () => {
         loadTradingViewWidget(currentInterval);
     });
