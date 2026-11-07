@@ -490,45 +490,48 @@
         historyList.innerHTML = logHtml + historyList.innerHTML;
     }
 
-  
-    async function callGeminiApi(promptText, systemInstruction = "") {
-        const apiKey = customGeminiApiKey || localStorage.getItem('forrex_gemini_api_key') || "";
-        if (!apiKey) {
-            openApiKeyModal();
-            throw new Error("សូមបញ្ចូល Gemini API Key របស់អ្នកជាមុនសិនតាមរយៈប៊ូតុង API Settings នៅខាងលើ។");
-        }
-
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
-        
-        const payload = {
-            contents: [{ parts: [{ text: promptText }] }]
-        };
-
-        if (systemInstruction) {
-            payload.systemInstruction = { parts: [{ text: systemInstruction }] };
-        }
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.error?.message || 'API call failed');
-            }
-
-            const data = await response.json();
-            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) throw new Error("No response generated from Gemini.");
-            return text;
-        } catch (error) {
-            console.error("Gemini API Error:", error);
-            throw error;
-        }
+  async function callGeminiApi(promptText, systemInstruction = "") {
+    const apiKey = customGeminiApiKey || localStorage.getItem('forrex_gemini_api_key') || "";
+    if (!apiKey) {
+        openApiKeyModal();
+        throw new Error("សូមបញ្ចូល Gemini API Key របស់អ្នកជាមុនសិនតាមរយៈប៊ូតុង API Settings នៅខាងលើ។");
     }
+
+    // ប្តូរមកប្រើ gemini-1.5-flash ដើម្បីភាពរលូន និងកាត់បន្ថយ High Demand
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    
+    const payload = {
+        contents: [{ parts: [{ text: promptText }] }]
+    };
+
+    if (systemInstruction) {
+        payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+    }
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errData = await response.json();
+            if (response.status === 429 || errData.error?.code === 429) {
+                throw new Error("Server AI កំពុងមានអ្នកប្រើប្រាស់ច្រើន (High Demand)។ សូមរង់ចាំ ៥ ទៅ ១០ វិនាទី រួចសាកល្បងម្តងទៀត!");
+            }
+            throw new Error(errData.error?.message || 'API call failed');
+        }
+
+        const data = await response.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!text) throw new Error("No response generated from Gemini.");
+        return text;
+    } catch (error) {
+        console.error("Gemini API Error:", error);
+        throw error;
+    }
+}
 
     async function askGeminiFullSetup() {
         switchTab('analysis');
