@@ -497,8 +497,8 @@
         throw new Error("សូមបញ្ចូល Gemini API Key របស់អ្នកជាមុនសិនតាមរយៈប៊ូតុង API Settings នៅខាងលើ។");
     }
 
-    // ប្តូរមកប្រើ gemini-1.5-flash ដើម្បីភាពរលូន និងកាត់បន្ថយ High Demand
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+   
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
     
     const payload = {
         contents: [{ parts: [{ text: promptText }] }]
